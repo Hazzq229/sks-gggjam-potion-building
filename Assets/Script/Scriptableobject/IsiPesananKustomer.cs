@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Customer", menuName = "New Customer Order")]
 public class IsiPesananKustomer :ScriptableObject
 {
-    public int bahan1;
-    public int bahan2;
-    public int bahan3;
+    public int bahanbenar1;
+    public int bahanbenar2;
+    public int bahanbenar3;
     public string mantra;
 }

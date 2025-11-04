@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 8856390}
   - component: {fileID: 8856389}
   m_Layer: 5
-  m_Name: Ulat
+  m_Name: Bahan3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 300177978}
   - component: {fileID: 300177977}
   m_Layer: 5
-  m_Name: Berlian
+  m_Name: Bahan3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -916,7 +916,7 @@ GameObject:
   - component: {fileID: 640314613}
   - component: {fileID: 640314612}
   m_Layer: 5
-  m_Name: Katak
+  m_Name: Bahan1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1308,7 +1308,7 @@ GameObject:
   - component: {fileID: 907395385}
   - component: {fileID: 907395384}
   m_Layer: 5
-  m_Name: Srawberry
+  m_Name: Bahan3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1884,7 +1884,7 @@ GameObject:
   - component: {fileID: 1256996918}
   - component: {fileID: 1256996917}
   m_Layer: 5
-  m_Name: Bahan1
+  m_Name: BB1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2172,7 +2172,7 @@ GameObject:
   - component: {fileID: 1423075402}
   - component: {fileID: 1423075401}
   m_Layer: 5
-  m_Name: Bahan3
+  m_Name: BB3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2250,7 +2250,7 @@ GameObject:
   - component: {fileID: 1561256198}
   - component: {fileID: 1561256197}
   m_Layer: 5
-  m_Name: Bahan2
+  m_Name: BB2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2665,7 +2665,7 @@ GameObject:
   - component: {fileID: 1650352167}
   - component: {fileID: 1650352166}
   m_Layer: 5
-  m_Name: Ruby
+  m_Name: Bahan1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2786,7 +2786,7 @@ GameObject:
   - component: {fileID: 1761706344}
   - component: {fileID: 1761706343}
   m_Layer: 5
-  m_Name: Darah
+  m_Name: Bahan2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2907,7 +2907,7 @@ GameObject:
   - component: {fileID: 1844057881}
   - component: {fileID: 1844057880}
   m_Layer: 5
-  m_Name: BlueBerry
+  m_Name: Bahan1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3028,7 +3028,7 @@ GameObject:
   - component: {fileID: 1918094537}
   - component: {fileID: 1918094536}
   m_Layer: 5
-  m_Name: Batu Safir
+  m_Name: Bahan2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3149,7 +3149,7 @@ GameObject:
   - component: {fileID: 2059338075}
   - component: {fileID: 2059338074}
   m_Layer: 5
-  m_Name: Daun
+  m_Name: Bahan2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

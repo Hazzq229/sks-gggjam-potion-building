@@ -15,6 +15,14 @@ public class UangPemain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+    public void tambahuang(float jumlah)
+    {
+        uang += jumlah;
+    }
+    public void kuranguang(float jumlah)
+    {
+        uang -= jumlah;
     }
 }
