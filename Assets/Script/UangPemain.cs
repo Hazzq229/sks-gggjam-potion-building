@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UangPemain : MonoBehaviour
 {
-    public float uang; 
+    public float uang;
+    public TextMeshProUGUI jumlahduid; 
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +17,7 @@ public class UangPemain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        jumlahduid.text = "Uangmu  " + uang;
     }
     public void tambahuang(float jumlah)
     {
