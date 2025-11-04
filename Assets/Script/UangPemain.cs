@@ -1,30 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Collections;
 using UnityEngine;
 
 public class UangPemain : MonoBehaviour
 {
-    public float uang;
-    public TextMeshProUGUI jumlahduid; 
-    // Start is called before the first frame update
+    [Header("Reference")]
+    [SerializeField] private TextMeshProUGUI _moneyText;
+    private int _moneyCount;
+    public int MoneyCount
+    {
+        get
+        {
+            return _moneyCount;
+        }
+        set
+        {
+            _moneyCount = value;
+
+            _moneyText.text = "Uangmu " + _moneyCount;
+            PlayerPrefs.SetInt("Uang", _moneyCount);
+        }
+    }
     void Start()
     {
-      uang =  PlayerPrefs.GetFloat("Uang", 0f);
-        
+        _moneyCount = PlayerPrefs.GetInt("Uang", 0);
     }
-
-    // Update is called once per frame
-    void Update()
+    public void AddMoney(int amount)
     {
-        jumlahduid.text = "Uangmu  " + uang;
+        Debug.Log("Adding money to player's balance.");
+        MoneyCount += amount;
     }
-    public void tambahuang(float jumlah)
+    public void DeductMoney(int amount)
     {
-        uang += jumlah;
-    }
-    public void kuranguang(float jumlah)
-    {
-        uang -= jumlah;
+        Debug.Log("Deducting money from player's balance.");
+        MoneyCount -= amount;
     }
 }

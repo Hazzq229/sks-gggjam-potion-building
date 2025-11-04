@@ -6,34 +6,68 @@ using UnityEngine.UI;
 
 public class TimeHandler : MonoBehaviour
 {
-    public float countdown = 10f;
-    public Slider timeslide;
-    public delegate void OnTimeUp();
-public event OnTimeUp TimeUpEvent;
+    [SerializeField]
+    private float _countdown = 10f;
+    [SerializeField]
+    public Slider timeSlide;
 
-    // Start is called before the first frame update
-    void Start()
+    // Public property to encapsulate the countdown value.
+    // Setting this value will update the slider and (re)enable the timer.
+    public float Countdown
     {
-        timeslide.maxValue = countdown;
-        timeslide.minValue = 0;
-        timeslide.value = countdown;
+        get => _countdown;
+        set
+        {
+            _countdown = Mathf.Max(0f, value);
+            if (timeSlide != null)
+            {
+                timeSlide.maxValue = _countdown;
+                timeSlide.value = _countdown;
+            }
+            enabled = _countdown > 0f;
+        }
+    }
+    public delegate void OnTimeUp();
+    public event OnTimeUp TimeUpEvent;
+    void Awake()
+    {
+        // Try to auto-bind the Slider if it wasn't assigned in the Inspector
+        if (timeSlide == null)
+        {
+            timeSlide = GetComponent<Slider>();
+            if (timeSlide == null)
+                timeSlide = GetComponentInChildren<Slider>();
+
+            if (timeSlide == null)
+                Debug.LogWarning($"[TimeHandler] No Slider assigned or found. Timer will run but UI won't update. ({name})");
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        coutdownting();
+        TickCountdown();
     }
-    public void coutdownting()
+    private void TickCountdown()
     {
-        countdown -= Time.deltaTime;
+        if (_countdown <= 0f) return;
 
-        timeslide.value = countdown;
-        if (countdown <= 0)
-    {
-        countdown = 0;
-        TimeUpEvent?.Invoke();
-        enabled = false;
+        _countdown -= Time.deltaTime;
+        _countdown = Mathf.Max(0f, _countdown);
+
+        if (timeSlide != null)
+            timeSlide.value = _countdown;
+
+        if (_countdown <= 0f)
+        {
+            enabled = false;
+            TimeUpEvent?.Invoke();
+        }
     }
+    public void ResetTimer(float seconds)
+    {
+        Debug.Log("Resetting timer");
+        if (timeSlide != null)
+            timeSlide.minValue = 0f;
+        Countdown = seconds;
     }
 }

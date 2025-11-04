@@ -1,98 +1,102 @@
+using System;
 using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class SpelledChoiceHandler : MonoBehaviour
 {
-    public IsiPesananKustomer pesanan;
-    public TimeHandler waktu;
-    public UangPemain duid;
+    [Header("Crafting Settings")]
+    [SerializeField] private GameObject[] _ingredientsGroup;
+    [Header("Reference")]
+    [SerializeField] private TimeHandler _timeHandler;
+    [SerializeField] private UangPemain _moneyHandler;
+    [Header("Runtime")]
+    [SerializeField] private IsiPesananKustomer _currentOrder;
+    [Header("Event")]
+    public UnityEvent OnOrderCompleted;
+    private int _ingredients = 0;
 
-    public GameObject[] kelompokBahan;
-
-    private int bahanindex = 0;
-
+    void Awake()
+    {
+        for (int i = 0; i < _ingredientsGroup.Length; i++)
+            _ingredientsGroup[i].SetActive(false);
+    }
     void Start()
     {
-
-        for (int i = 0; i < kelompokBahan.Length; i++)
-            kelompokBahan[i].SetActive(i == 0);
-
-
-        for (int group = 0; group < kelompokBahan.Length; group++)
+        // Add listener for each button 
+        for (int group = 0; group < _ingredientsGroup.Length; group++)
         {
-            Button[] buttons = kelompokBahan[group].GetComponentsInChildren<Button>();
+            Button[] buttons = _ingredientsGroup[group].GetComponentsInChildren<Button>();
             for (int i = 0; i < buttons.Length; i++)
             {
                 int capturedGroup = group;
                 int capturedIndex = i;
-                buttons[i].onClick.AddListener(() => PilihBahan(capturedGroup, capturedIndex));
+                buttons[i].onClick.AddListener(() => ChooseIngredient(capturedGroup, capturedIndex));
             }
         }
-        waktu.TimeUpEvent += HandleTimeUp;
+        _timeHandler.TimeUpEvent += HandleTimeUp;
     }
-
-    void PilihBahan(int group, int index)
+    public void StartNewOrder(IsiPesananKustomer newOrder)
     {
+        Debug.Log("Starting a new potion order");
+        _currentOrder = newOrder;
+        _ingredients = 0;
 
-        if (group != bahanindex)
-            return;
-
-        int correctIndex = -1;
-
-        switch (bahanindex)
+        if (_ingredientsGroup.Length > 0)
+            _ingredientsGroup[0].SetActive(true);
+    }
+    void ChooseIngredient(int group, int index)
+    {
+        if (_currentOrder == null || group != _ingredients) return;
+        bool isCorrect = false;
+        switch (_ingredients)
         {
-            case 0: correctIndex = pesanan.bahanbenar1; break;
-            case 1: correctIndex = pesanan.bahanbenar2; break;
-            case 2: correctIndex = pesanan.bahanbenar3; break;
+            case 0:
+                isCorrect = ((Bahan1)index) == _currentOrder.correctIngredient1;
+                break;
+            case 1:
+                isCorrect = ((Bahan2)index) == _currentOrder.correctIngredient2;
+                break;
+            case 2:
+                isCorrect = ((Bahan3)index) == _currentOrder.correctIngredient3;
+                break;
         }
 
-        if (waktu.countdown > 0)
+        if (isCorrect)
         {
-            if (index == correctIndex)
-            {
-                duid.tambahuang(100f);
-
-            }
-            else
-            {
-                duid.kuranguang(50f);
-
-            }
-
-
-
-
-            kelompokBahan[bahanindex].SetActive(false);
-
-            bahanindex++;
+            Debug.Log("Correct potion material.");
+            _moneyHandler.AddMoney(100);
         }
-        else if (waktu.countdown <= 0)
+        else
         {
-            Debug.Log("Time up");
-            waktu.countdown += 10f;
-            duid.kuranguang(50f);
-            kelompokBahan[bahanindex].SetActive(false);
-
-            bahanindex++;
+            Debug.Log("Incorrect potion material.");
+            _moneyHandler.DeductMoney(50);
         }
 
-        if (bahanindex < kelompokBahan.Length)
-        {
-            kelompokBahan[bahanindex].SetActive(true);
-        }
-        
-    
-
-
+        ContinueNextMaterial();
     }
     void HandleTimeUp()
-{
-    Debug.Log("Time's up! Penalize player.");
-    duid.kuranguang(50f);
-    waktu.countdown = waktu.timeslide.maxValue;
-    kelompokBahan[bahanindex].SetActive(false);
-    bahanindex++;
-    if (bahanindex < kelompokBahan.Length)
-        kelompokBahan[bahanindex].SetActive(true);
-}
+    {
+        Debug.Log("Time's up! Penalize player.");
+        _moneyHandler.DeductMoney(100);
+
+        OnOrderCompleted.Invoke();
+    }
+    void ContinueNextMaterial()
+    {
+        _ingredientsGroup[_ingredients].SetActive(false);
+
+        _ingredients++;
+
+        if (_ingredients >= _ingredientsGroup.Length)
+        {
+            Debug.Log("Order Completed");
+            OnOrderCompleted.Invoke();
+        }
+        else
+        {
+            _ingredientsGroup[_ingredients].SetActive(true);
+        }
+    }
 }
