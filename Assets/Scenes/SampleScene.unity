@@ -1087,8 +1087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eafd7ee29ffdc9540b45d7aca04ad4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uang: 200
-  jumlahduid: {fileID: 2084183401}
+  _moneyText: {fileID: 2084183401}
 --- !u!4 &616712381
 Transform:
   m_ObjectHideFlags: 0
@@ -2882,9 +2881,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8eb2d63d2c50e9547848fe80f59e2bd7, type: 2}
   _customerSprites: []
   _ingredientInteractionHandler: {fileID: 1511876013}
-  _orderUI: {fileID: 0}
-  _timerHandler: {fileID: 0}
-  _moneyHandler: {fileID: 0}
+  _orderUI: {fileID: 1965749616}
+  _timeHandler: {fileID: 1705528774}
+  _moneyHandler: {fileID: 616712380}
   _currentOrder: {fileID: 0}
   _currentCustomer: {fileID: 720816146}
 --- !u!4 &1340752712
@@ -3502,13 +3501,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c3a21affb29d24aab873d1c6b15057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kelompokBahan:
+  _ingredientsGroup:
   - {fileID: 1256996915}
   - {fileID: 1561256195}
   - {fileID: 1423075399}
-  waktu: {fileID: 1705528774}
-  duid: {fileID: 616712380}
-  _pesananSaatIni: {fileID: 0}
+  _timeHandler: {fileID: 1705528774}
+  _moneyHandler: {fileID: 616712380}
+  _currentOrder: {fileID: 0}
   OnOrderCompleted:
     m_PersistentCalls:
       m_Calls: []
@@ -4182,8 +4181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b635f43fa59c08749894bb2d8849c8a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdown: 10
-  timeslide: {fileID: 1438196326}
+  _countdown: 10
+  timeSlide: {fileID: 1438196326}
 --- !u!1 &1761706341
 GameObject:
   m_ObjectHideFlags: 0
@@ -4591,9 +4590,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333bd0dfa2f8e794b992a98a249da2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotBahan1: {fileID: 0}
-  slotBahan2: {fileID: 0}
-  slotBahan3: {fileID: 0}
+  slotBahan1: {fileID: 1259754648}
+  slotBahan2: {fileID: 521132800}
+  slotBahan3: {fileID: 1567785863}
   dbBahan1:
   - type: 0
     icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
