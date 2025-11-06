@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UangPemain : MonoBehaviour
 {
@@ -26,6 +28,7 @@ public class UangPemain : MonoBehaviour
     void Start()
     {
         _moneyCount = PlayerPrefs.GetInt("Uang", 0);
+        AddMoney(1000);
     }
     public void AddMoney(int amount)
     {
@@ -37,4 +40,5 @@ public class UangPemain : MonoBehaviour
         Debug.Log("Deducting money from player's balance.");
         MoneyCount -= amount;
     }
+  
 }

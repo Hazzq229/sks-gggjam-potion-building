@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -61,5 +63,16 @@ public class GameManager : MonoBehaviour
         //     int randomSpriteIndex = Random.Range(0, _customerSprites.Count);
         //     _currentCustomer.sprite = _customerSprites[randomSpriteIndex];
         // }
+    }
+    void gameover()
+    {
+        SceneManager.LoadScene("Gameover");
+    }
+    void Update()
+    {
+        if (_initialMoney <= 0)
+        {
+            gameover();
+        }
     }
 }
