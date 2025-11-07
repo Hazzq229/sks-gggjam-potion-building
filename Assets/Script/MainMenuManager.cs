@@ -14,6 +14,12 @@ public class MainMenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Gameplay");
     }
+    public void quittinggame()
+    {
+        Application.Quit();
+        Debug.Log("quit");
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +29,10 @@ public class MainMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            quittinggame();
+        }
         
     }
 }
