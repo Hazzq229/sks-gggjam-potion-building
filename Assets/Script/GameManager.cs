@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if (_initialMoney <= 0)
+        if (_initialMoney < 0)
         {
             gameover();
         }

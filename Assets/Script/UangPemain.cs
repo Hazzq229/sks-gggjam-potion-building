@@ -40,5 +40,16 @@ public class UangPemain : MonoBehaviour
         Debug.Log("Deducting money from player's balance.");
         MoneyCount -= amount;
     }
+     void gameover()
+    {
+        SceneManager.LoadScene("Gameover");
+    }
+    void Update()
+    {
+        if (MoneyCount <= 0)
+        {
+            gameover();
+        }
+    }
   
 }
