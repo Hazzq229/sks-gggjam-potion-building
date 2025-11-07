@@ -2608,7 +2608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5320754, g: 0.5320754, b: 0.5320754, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3779,7 +3779,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -584.0039, y: 9.1712}
+  m_AnchoredPosition: {x: -584.0039, y: 9.171143}
   m_SizeDelta: {x: 304.2737, y: 303.7523}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1650352166
@@ -3945,7 +3945,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28.6342, y: -6.1444}
+  m_AnchoredPosition: {x: 28.63379, y: -6.144409}
   m_SizeDelta: {x: 353.0219, y: 273.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1761706343
@@ -4316,16 +4316,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333bd0dfa2f8e794b992a98a249da2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotBahan1: {fileID: 0}
+  slotBahan1: {fileID: 1259754648}
   slotBahan2: {fileID: 0}
   slotBahan3: {fileID: 0}
   dbBahan1:
   - type: 0
-    icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    icon: {fileID: 21300000, guid: 1e9fd76d51a938d4c9dcf08904623050, type: 3}
   - type: 1
-    icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    icon: {fileID: 21300000, guid: 24b492b3da283964f9d424ab51c91267, type: 3}
   - type: 2
-    icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    icon: {fileID: 21300000, guid: f1bcaf8f68f741f44991287c4477db27, type: 3}
   dbBahan2:
   - type: 0
     icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
