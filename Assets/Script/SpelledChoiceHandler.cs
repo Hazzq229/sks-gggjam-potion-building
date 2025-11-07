@@ -11,6 +11,11 @@ public class SpelledChoiceHandler : MonoBehaviour
     [Header("Reference")]
     [SerializeField] private TimeHandler _timeHandler;
     [SerializeField] private UangPemain _moneyHandler;
+    [SerializeField] private AudioSource _soundeffecthandler;
+    [Header("AudioClip")]
+    [SerializeField] private AudioClip _angrycustomer;
+    [SerializeField] private AudioClip _pleasedcustomer;
+    
     [Header("Runtime")]
     [SerializeField] private IsiPesananKustomer _currentOrder;
     [Header("Event")]
@@ -67,11 +72,15 @@ public class SpelledChoiceHandler : MonoBehaviour
         {
             Debug.Log("Correct potion material.");
             _moneyHandler.AddMoney(100);
+            _soundeffecthandler.clip = _pleasedcustomer;
+            _soundeffecthandler.Play();
         }
         else
         {
             Debug.Log("Incorrect potion material.");
             _moneyHandler.DeductMoney(50);
+            _soundeffecthandler.clip = _angrycustomer;
+            _soundeffecthandler.Play();
         }
 
         ContinueNextMaterial();

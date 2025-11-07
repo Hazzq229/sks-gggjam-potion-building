@@ -329,7 +329,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.7292, y: -36.4616}
+  m_AnchoredPosition: {x: 0.7292, y: -101}
   m_SizeDelta: {x: 712.7584, y: 102.9232}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &671879329
@@ -460,7 +460,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 70}
+  m_AnchoredPosition: {x: 0.72919, y: 256}
   m_SizeDelta: {x: 1410.7466, y: 350.0516}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &816369823
@@ -483,17 +483,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Over
+  m_text: "Game \nOver"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f804f35e7cee0848b83a273e983867a, type: 2}
+  m_sharedMaterial: {fileID: -291551503902849805, guid: 2f804f35e7cee0848b83a273e983867a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280322746
+  m_fontColor: {r: 0.7283019, g: 0.53987265, b: 0.12504804, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
