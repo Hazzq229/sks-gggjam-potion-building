@@ -17,5 +17,5 @@ MonoBehaviour:
   correctIngredient3: 0
   mantra: SATEEE
   customersidle: {fileID: 21300000, guid: 2cb24b159a08a714fa19f5e9a69f5c72, type: 3}
-  customerpleased: {fileID: 21300000, guid: 06fc94eea0185dc449786816a19b93dd, type: 3}
-  customerangry: {fileID: 21300000, guid: 70f8e9a6b89a534439a21af35527e89f, type: 3}
+  customerpleased: {fileID: 21300000, guid: 70f8e9a6b89a534439a21af35527e89f, type: 3}
+  customerangry: {fileID: 21300000, guid: 06fc94eea0185dc449786816a19b93dd, type: 3}

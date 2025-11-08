@@ -24,7 +24,6 @@ public class TimeHandler : MonoBehaviour
                 timeSlide.maxValue = _countdown;
                 timeSlide.value = _countdown;
             }
-            enabled = _countdown > 0f;
         }
     }
     public delegate void OnTimeUp();
@@ -41,6 +40,7 @@ public class TimeHandler : MonoBehaviour
             if (timeSlide == null)
                 Debug.LogWarning($"[TimeHandler] No Slider assigned or found. Timer will run but UI won't update. ({name})");
         }
+        enabled = false;
     }
 
     void Update()

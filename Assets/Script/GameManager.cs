@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using UnityEditor.SearchService;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -9,6 +9,7 @@ enum Cause { Ingredient, Spell, Timeout}
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; set; }
+    
     [Header("Game Settings")]
     [SerializeField] private float _maxOrderDuration;
     [SerializeField] private int _initialMoney;
@@ -18,15 +19,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _penaltyMisingredient = 50;
     [SerializeField] private int _penaltyMistype= 80;
     [SerializeField] private int _penaltyTimeout = 100;
+    
     [Header("AudioClip")]
     [SerializeField] private AudioClip _angryCustomer;
     [SerializeField] private AudioClip _pleasedCustomer;
-    [Header("Reference")]
-    [SerializeField] private SpelledChoiceHandler _ingredientInteractionHandler;
-    [SerializeField] private CustomerOrderUI _orderUI;
-    [SerializeField] private TimeHandler _timeHandler;
-    [SerializeField] private UangPemain _moneyHandler;
-    [SerializeField] private AudioSource _soundFXHandler;
+    
     [Header("Dynamic Timer Settings")]
     [Tooltip("Durasi minimal order")]
     [SerializeField] private float _minOrderDuration = 5f;
@@ -36,9 +33,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _ordersPerStep = 3;
     [Tooltip("Tampilkan log perubahan durasi di Console")]
     [SerializeField] private bool _logDifficulty = true;
+    
+    [Header("Reference")]
+    [SerializeField] private SpelledChoiceHandler _ingredientInteractionHandler;
+    [SerializeField] private CustomerOrderUI _orderUI;
+    [SerializeField] private TimeHandler _timeHandler;
+    [SerializeField] private UangPemain _moneyHandler;
+    [SerializeField] private AudioSource _soundFXHandler;
+    [SerializeField] private Image _currentCustomer;
+    [SerializeField] private CustomerMover _customerMover;
+
     [Header("Runtime")]
     [SerializeField] private IsiPesananKustomer _currentOrder;
-    [SerializeField] private Image _currentCustomer;
     [SerializeField, Tooltip("Durasi order saat ini (runtime)")]
     private float _currentOrderDuration;
     [SerializeField, Tooltip("Jumlah order yang telah diselesaikan")]
@@ -80,14 +86,24 @@ public class GameManager : MonoBehaviour
     }
     public void HandleOrderCreation()
     {
+        StartCoroutine(HandleOrderSequence());
+    }
+    private IEnumerator HandleOrderSequence()
+    {
         CreateOrder();
-        RandomCustomerSprite();
+        _currentCustomer.sprite = _currentOrder.customersidle;
+        yield return StartCoroutine(_customerMover.MoveIn());
 
         if (_timeHandler != null)
-            _timeHandler.ResetTimer(_currentOrderDuration);
+        {
+            _timeHandler.enabled = true;
+            _timeHandler.ResetTimer(_currentOrderDuration);   
+        }
+
         _ingredientInteractionHandler.StartNewOrder(_currentOrder);
         _orderUI.ShowOrderUI(_currentOrder);
     }
+
     void CreateOrder()
     {
         Debug.Log("Creating a new potion order.");
@@ -97,37 +113,15 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Current potion order: {_currentOrder.correctIngredient1}, {_currentOrder.correctIngredient2}, {_currentOrder.correctIngredient3}");
         Debug.Log($"Mantra: {_currentOrder.mantra}");
     }
-    void RandomCustomerSprite()
-    {
-        Debug.Log("Changing customer sprite.");
-
-
-        _currentCustomer.sprite = _currentOrder.customersidle;
-
-    }
-    void customerreaction()
-    {
-       if (_moneyHandler.pleased_Cust == true) { 
-        _currentCustomer.sprite = _currentOrder.customerpleased; }
-        else if (_moneyHandler.Angry_Cust == true) { 
-            _currentCustomer.sprite = _currentOrder.customerangry; }
-        else
-        {_currentCustomer.sprite = _currentOrder.customersidle;
-            
-        } 
-    }
     void GameOver()
     {
         SceneManager.LoadScene("Gameover");
     }
     void Update()
     {
-
-        customerreaction();
-        if (_initialMoney <= 0)
+        //CustomerReaction();
 
         if (_moneyHandler.MoneyCount <= 0)
-
         {
             GameOver();
         }
@@ -135,18 +129,22 @@ public class GameManager : MonoBehaviour
     void HandleCorrectSpell()
     {
         HandleReward(Cause.Spell);
-        AdvanceDifficultyAfterOrder();
-        HandleOrderCreation();
+        StartCoroutine(HandleCustomerExitAndNext());
     }
     void HandleMisSpell()
     {
         HandlePenalty(Cause.Spell);
-        AdvanceDifficultyAfterOrder();
-        HandleOrderCreation();
+        StartCoroutine(HandleCustomerExitAndNext());
     }
     void HandleTimout()
     {
         HandlePenalty(Cause.Timeout);
+        StartCoroutine(HandleCustomerExitAndNext());
+    }
+    private IEnumerator HandleCustomerExitAndNext()
+    {
+        _timeHandler.enabled = false;
+        yield return StartCoroutine(_customerMover.MoveOut());
         AdvanceDifficultyAfterOrder();
         HandleOrderCreation();
     }
@@ -165,6 +163,7 @@ public class GameManager : MonoBehaviour
         }
         _soundFXHandler.clip = _pleasedCustomer;
         _soundFXHandler.Play();
+        _currentCustomer.sprite = _currentOrder.customerpleased;
     }
     void HandlePenalty(Cause cause)
     {
@@ -182,6 +181,7 @@ public class GameManager : MonoBehaviour
         }
         _soundFXHandler.clip = _angryCustomer;
         _soundFXHandler.Play();
+        _currentCustomer.sprite = _currentOrder.customerangry;
     }
 
     private void AdvanceDifficultyAfterOrder()
