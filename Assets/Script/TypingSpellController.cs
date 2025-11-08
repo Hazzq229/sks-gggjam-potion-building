@@ -29,6 +29,7 @@ public class TypingSpellController : MonoBehaviour
     void Start()
     {
         GameManager.Instance.OnAllIngredientsChosen.AddListener(BeginTypingPhase);
+        GameManager.Instance.OnTimeout.AddListener(EndPhase);
     }
 
     private void BeginTypingPhase()
@@ -115,7 +116,7 @@ public class TypingSpellController : MonoBehaviour
         EndPhase();
     }
 
-    private void EndPhase()
+    public void EndPhase()
     {
         // Panel bisa disembunyikan langsung atau menunggu animasi (tambahkan coroutine jika perlu)
         SetTypingPanelVisible(false);

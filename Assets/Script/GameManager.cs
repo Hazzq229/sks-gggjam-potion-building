@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _orderDuration;
     [SerializeField] private int _initialMoney;
     [SerializeField] private List<IsiPesananKustomer> _availableRecipes;
-    [SerializeField] private List<Sprite> _customerSprites;
     [SerializeField] private int _rewardIngredient = 80;
     [SerializeField] private int _rewardTyping = 150;
     [SerializeField] private int _penaltyMisingredient = 50;
@@ -26,7 +25,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpelledChoiceHandler _ingredientInteractionHandler;
     [SerializeField] private CustomerOrderUI _orderUI;
     [SerializeField] private TimeHandler _timeHandler;
-
     [SerializeField] private UangPemain _moneyHandler;
     [SerializeField] private AudioSource _soundFXHandler;
     [Header("Runtime")]
