@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; set; }
     [Header("Game Settings")]
-    [SerializeField] private float _orderDuration;
+    [SerializeField] private float _maxOrderDuration;
     [SerializeField] private int _initialMoney;
     [SerializeField] private List<IsiPesananKustomer> _availableRecipes;
     [SerializeField] private int _rewardIngredient = 80;
@@ -27,9 +27,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TimeHandler _timeHandler;
     [SerializeField] private UangPemain _moneyHandler;
     [SerializeField] private AudioSource _soundFXHandler;
+    [Header("Dynamic Timer Settings")]
+    [Tooltip("Durasi minimal order")]
+    [SerializeField] private float _minOrderDuration = 5f;
+    [Tooltip("Pengurangan durasi setiap kenaikan tingkat kesulitan")]
+    [SerializeField] private float _durationStep = 2f;
+    [Tooltip("Turunkan durasi setiap berapa order selesai")]
+    [SerializeField] private int _ordersPerStep = 3;
+    [Tooltip("Tampilkan log perubahan durasi di Console")]
+    [SerializeField] private bool _logDifficulty = true;
     [Header("Runtime")]
     [SerializeField] private IsiPesananKustomer _currentOrder;
     [SerializeField] private Image _currentCustomer;
+    [SerializeField, Tooltip("Durasi order saat ini (runtime)")]
+    private float _currentOrderDuration;
+    [SerializeField, Tooltip("Jumlah order yang telah diselesaikan")]
+    private int _ordersCompleted = 0;
     [Header("Event")]
     public UnityEvent OnTimeout;
     public UnityEvent OnCorrectIngredient;
@@ -52,8 +65,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // Inisialisasi durasi saat ini dari nilai awal (_maxOrderDuration)
+        _currentOrderDuration = Mathf.Max(_minOrderDuration, _maxOrderDuration);
         if (_timeHandler != null)
-            _timeHandler.Countdown = _orderDuration;
+            _timeHandler.Countdown = _currentOrderDuration;
         _moneyHandler.MoneyCount = _initialMoney;
 
         OnCorrectIngredient.AddListener(() => HandleReward(Cause.Ingredient));
@@ -69,7 +84,7 @@ public class GameManager : MonoBehaviour
         RandomCustomerSprite();
 
         if (_timeHandler != null)
-            _timeHandler.ResetTimer(_orderDuration);
+            _timeHandler.ResetTimer(_currentOrderDuration);
         _ingredientInteractionHandler.StartNewOrder(_currentOrder);
         _orderUI.ShowOrderUI(_currentOrder);
     }
@@ -120,16 +135,19 @@ public class GameManager : MonoBehaviour
     void HandleCorrectSpell()
     {
         HandleReward(Cause.Spell);
+        AdvanceDifficultyAfterOrder();
         HandleOrderCreation();
     }
     void HandleMisSpell()
     {
         HandlePenalty(Cause.Spell);
+        AdvanceDifficultyAfterOrder();
         HandleOrderCreation();
     }
     void HandleTimout()
     {
         HandlePenalty(Cause.Timeout);
+        AdvanceDifficultyAfterOrder();
         HandleOrderCreation();
     }
     void HandleReward(Cause cause)
@@ -156,14 +174,29 @@ public class GameManager : MonoBehaviour
                 _moneyHandler.DeductMoney(_penaltyMisingredient);
                 break;
             case Cause.Spell:
-                _moneyHandler.AddMoney(_penaltyMistype);
+                _moneyHandler.DeductMoney(_penaltyMistype);
                 break;
             case Cause.Timeout:
-                _moneyHandler.AddMoney(_penaltyTimeout);
-                HandleOrderCreation();
+                _moneyHandler.DeductMoney(_penaltyTimeout);
                 break;    
         }
         _soundFXHandler.clip = _angryCustomer;
         _soundFXHandler.Play();
+    }
+
+    private void AdvanceDifficultyAfterOrder()
+    {
+        _ordersCompleted++;
+        if (_ordersPerStep <= 0) return;
+
+        if (_ordersCompleted % _ordersPerStep == 0)
+        {
+            float old = _currentOrderDuration;
+            _currentOrderDuration = Mathf.Max(_minOrderDuration, _currentOrderDuration - _durationStep);
+            if (_logDifficulty && !Mathf.Approximately(old, _currentOrderDuration))
+            {
+                Debug.Log($"[Difficulty] Orders={_ordersCompleted} -> orderDuration: {old:F1}s -> {_currentOrderDuration:F1}s (min={_minOrderDuration:F1})");
+            }
+        }
     }
 }
