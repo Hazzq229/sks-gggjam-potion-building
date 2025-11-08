@@ -21,7 +21,7 @@ public class UangPemain : MonoBehaviour
         {
             _moneyCount = value;
 
-            _moneyText.text = "Uangmu " + _moneyCount;
+            _moneyText.text = ""+_moneyCount;
             PlayerPrefs.SetInt("Uang", _moneyCount);
         }
     }
