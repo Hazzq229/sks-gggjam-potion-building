@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098a63881073b58439bd84ca2c7f0448, type: 3}
   m_Name: Order1
   m_EditorClassIdentifier: 
-  bahanbenar1: 0
-  bahanbenar2: 0
-  bahanbenar3: 0
-  mantra: order1
+  correctIngredient1: 0
+  correctIngredient2: 0
+  correctIngredient3: 2
+  mantra: Avrakadam
+  customersidle: {fileID: 21300000, guid: 5e12b66a8000c9547b53ceff30c7246e, type: 3}
+  customerpleased: {fileID: 21300000, guid: 9a8007e97709bdc48b107f161752b13b, type: 3}
+  customerangry: {fileID: 21300000, guid: 0a101de59fe1ac14aa4cb6e3c12b7da8, type: 3}

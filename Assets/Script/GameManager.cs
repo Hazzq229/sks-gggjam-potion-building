@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpelledChoiceHandler _ingredientInteractionHandler;
     [SerializeField] private CustomerOrderUI _orderUI;
     [SerializeField] private TimeHandler _timeHandler;
+    
     // customer order ui manager
     [SerializeField] private UangPemain _moneyHandler;
     [Header("Runtime")]
@@ -55,14 +56,21 @@ public class GameManager : MonoBehaviour
     void RandomCustomerSprite()
     {
         Debug.Log("Changing customer sprite.");
-        _currentCustomer.color = new Color(Random.value, Random.value, Random.value, 1f);
 
-        // Use this if customer sprites are ready to be implemented
-        // if (_customerSprites.Count > 0 && _currentCustomer != null)
-        // {
-        //     int randomSpriteIndex = Random.Range(0, _customerSprites.Count);
-        //     _currentCustomer.sprite = _customerSprites[randomSpriteIndex];
-        // }
+
+        _currentCustomer.sprite = _currentOrder.customersidle;
+
+    }
+    void customerreaction()
+    {
+       if (_moneyHandler.pleased_Cust == true) { 
+        _currentCustomer.sprite = _currentOrder.customerpleased; }
+        else if (_moneyHandler.Angry_Cust == true) { 
+            _currentCustomer.sprite = _currentOrder.customerangry; }
+        else
+        {_currentCustomer.sprite = _currentOrder.customersidle;
+            
+        } 
     }
     void gameover()
     {
@@ -70,7 +78,8 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if (_initialMoney < 0)
+        customerreaction();
+        if (_initialMoney <= 0)
         {
             gameover();
         }

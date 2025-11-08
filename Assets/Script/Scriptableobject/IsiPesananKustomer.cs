@@ -9,4 +9,7 @@ public class IsiPesananKustomer : ScriptableObject
     public Bahan2 correctIngredient2;
     public Bahan3 correctIngredient3;
     public string mantra;
+    public Sprite customersidle;
+    public Sprite customerpleased;
+    public Sprite customerangry;
 }

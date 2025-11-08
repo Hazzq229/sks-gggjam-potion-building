@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098a63881073b58439bd84ca2c7f0448, type: 3}
   m_Name: Order2
   m_EditorClassIdentifier: 
-  bahanbenar1: 1
-  bahanbenar2: 1
-  bahanbenar3: 1
-  mantra: order2
+  correctIngredient1: 0
+  correctIngredient2: 0
+  correctIngredient3: 0
+  mantra: Hoposfocus
+  customersidle: {fileID: 21300000, guid: e7941e3e78d8ab441935690ebb27f09f, type: 3}
+  customerpleased: {fileID: 21300000, guid: 7243d00a3752d2b4d885358addde4388, type: 3}
+  customerangry: {fileID: 21300000, guid: 6bfdc713613b911458b13b797b611dd6, type: 3}
