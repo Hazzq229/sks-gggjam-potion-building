@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Events;
@@ -10,17 +11,12 @@ public class SpelledChoiceHandler : MonoBehaviour
     [SerializeField] private GameObject[] _ingredientsGroup;
     [Header("Reference")]
     [SerializeField] private TimeHandler _timeHandler;
-    [SerializeField] private UangPemain _moneyHandler;
-    [SerializeField] private AudioSource _soundeffecthandler;
-    [Header("AudioClip")]
-    [SerializeField] private AudioClip _angrycustomer;
-    [SerializeField] private AudioClip _pleasedcustomer;
-    
     [Header("Runtime")]
     [SerializeField] private IsiPesananKustomer _currentOrder;
-    [Header("Event")]
-    public UnityEvent OnOrderCompleted;
+    [SerializeField] private string _mantraWord;
     private int _ingredients = 0;
+
+    public IsiPesananKustomer CurrentOrder => _currentOrder;
 
     void Awake()
     {
@@ -71,16 +67,12 @@ public class SpelledChoiceHandler : MonoBehaviour
         if (isCorrect)
         {
             Debug.Log("Correct potion material.");
-            _moneyHandler.AddMoney(100);
-            _soundeffecthandler.clip = _pleasedcustomer;
-            _soundeffecthandler.Play();
+            GameManager.Instance.OnCorrectIngredient.Invoke();
         }
         else
         {
             Debug.Log("Incorrect potion material.");
-            _moneyHandler.DeductMoney(50);
-            _soundeffecthandler.clip = _angrycustomer;
-            _soundeffecthandler.Play();
+            GameManager.Instance.OnMisIngredient.Invoke();
         }
 
         ContinueNextMaterial();
@@ -88,9 +80,8 @@ public class SpelledChoiceHandler : MonoBehaviour
     void HandleTimeUp()
     {
         Debug.Log("Time's up! Penalize player.");
-        _moneyHandler.DeductMoney(100);
 
-        OnOrderCompleted.Invoke();
+        GameManager.Instance.OnTimeout.Invoke();
     }
     void ContinueNextMaterial()
     {
@@ -100,8 +91,8 @@ public class SpelledChoiceHandler : MonoBehaviour
 
         if (_ingredients >= _ingredientsGroup.Length)
         {
-            Debug.Log("Order Completed");
-            OnOrderCompleted.Invoke();
+            Debug.Log("All Ingredient Has Been Add to Cauldron");
+            GameManager.Instance.OnAllIngredientsChosen.Invoke();
         }
         else
         {
